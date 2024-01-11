@@ -1,0 +1,3 @@
+to create new vue js project :
+npx create-vue@latest
+vite is new dependency if it didn't work the just run npm i
