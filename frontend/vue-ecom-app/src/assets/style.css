@@ -8,3 +8,50 @@ body{
     margin: 0;
     padding: 0;
 }
+.scrolTextContainer:nth-child(1){
+    position: relative;
+    height: 75vh;
+    background: linear-gradient(rgba(0, 0, 0,0.5),rgb(26, 24, 24)),url("./images/image1.jpg");
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;  
+  }
+  .scrolTextContainer:nth-child(2){
+    position: relative;
+    height: 75vh;
+    background: linear-gradient(rgba(0, 0, 0,0.5),rgb(26, 24, 24)),url("./images/image2.jpg");
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+  }
+  .scrolTextContainer:nth-child(3){
+    position: relative;
+    height: 75vh;
+    background: linear-gradient(rgba(0, 0, 0,0.5),rgb(26, 24, 24)),url("./images/image1.jpg");
+    
+    object-fit: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+  }
+  #barNav{
+    background: linear-gradient(rgba(0, 0, 0,0.5),rgb(26, 24, 24)),url('./images/header_not_home.jpg');
+ background-attachment: fixed;
+ background-position: center;
+ background-repeat: no-repeat;
+ background-size: cover;
+ object-fit: cover;
+ 
+}
+  .z-level-5{
+    z-index: 5555555;
+  }
+  .breadcrumbHref, .breadcrumbHref:focus,.breadcrumbHref:link,.breadcrumbHref:visited{
+    color: black !important;
+    text-decoration: none !important; 
+}
