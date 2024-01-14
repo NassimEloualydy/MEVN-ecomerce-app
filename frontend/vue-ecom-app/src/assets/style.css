@@ -48,6 +48,9 @@ body{
  object-fit: cover;
  
 }
+.select-bnt{
+  cursor: pointer;
+}
   .z-level-5{
     z-index: 5555555;
   }

@@ -22,7 +22,7 @@
                  
                 </div>
                 <form>
-                    <input type="hidden" name="_token" value="3REFFLh4Hlr7gDwDiAOFb91hcMavm3KPAaQQR7ZL">                    <div class="row col-md mt-2">
+                     <div class="row col-md mt-2">
                         <label for="" class="form-label">Email</label>
                         <input type="text" name="email" v-model="user.email" required value="" class="form-control">
 

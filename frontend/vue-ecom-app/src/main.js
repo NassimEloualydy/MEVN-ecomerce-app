@@ -7,5 +7,5 @@ import './assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './Router'
-
-createApp(App).use(bootstrap).use(router).mount('#app')
+import Toaster from '@meforma/vue-toaster'
+createApp(App).use(bootstrap).use(router).use(Toaster).mount('#app')
