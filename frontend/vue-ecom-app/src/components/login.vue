@@ -33,7 +33,7 @@
 
                     </div>
                     <div class="row col-md mt-2">
-                        <button type="submit" @click="login" class="btn btn-dark text-white">Submit</button>
+                        <button type="button" @click="login" class="btn btn-dark text-white">Submit</button>
                     </div>
 
                 </form>
@@ -55,6 +55,7 @@ return {
 
     activeurl:"Login",
     inactiveurl:[{name:"Home"}],
+    API_URL:"http://localhost:5050/API",
     user:{
         email:"",
         password:""
@@ -63,8 +64,26 @@ return {
         },
         methods:{
             login(){
-                // alert(this.user.email)
-                // alert(this.user.password)
+                fetch(`${this.API_URL}/user/login`,{
+                    method:"POST",
+                    headers:{
+                        "Accept":"application/json",
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify(this.user)
+                }
+                ).then(res=>res.json()).then(res=>{
+                    if(res.first_name){
+                        const {first_name,last_name,_id,token,role}=res;
+                        localStorage.setItem("user_info",JSON.stringify({first_name,last_name,_id,token,role}));
+                        this.$toast.success("Login With Success");
+                        this.$router.push("/Home");
+                    }else if(res.error){
+                        this.$toast.warning(res.error);                        
+                    }else{
+                        console.log(res)
+                    }
+                }).catch(error=>{console.log(error)});
             }
         },
         components:{

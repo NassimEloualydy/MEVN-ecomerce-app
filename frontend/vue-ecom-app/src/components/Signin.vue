@@ -94,7 +94,6 @@
         },
         signIn(){
 
-            console.log(this.userFormData);
             fetch(`${this.API_URL}/user/signin/`,{
                 method:"POST",
                 headers:{
@@ -105,8 +104,12 @@
             }).then(res=>res.json()).then(res=>{
                     if(res.message){
                         this.$toast.success(`${res.message}`);
-                    
-                    
+                        this.user.first_name="";
+                        this.user.last_name="";
+                        this.user.email="";
+                        this.user.password="";
+                        this.user.phone="";
+                        this.user.sexe="";
                     } else if(res.error){
                         this.$toast.warning(`${res.error}`);
 
