@@ -7,10 +7,11 @@ const app=express()
 const PORT=process.env.PORT || 8080
 
 const userRouter=require("./routes/userRouter");
-
+const categoryRouter=require("./routes/categoryRouter");
 app.use(cors());
 app.use(express.json())
 app.use("/API/user",userRouter);
+app.use("/API/category",categoryRouter);
 
 const DATABASE=process.env.DATABASE;
 

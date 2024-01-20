@@ -9,6 +9,7 @@ const userSchema=mongoose.Schema({
     status:{type:String,required:true},
     role:{type:String,required:true},
     password:{type:String,required:true},
+    token:{type:String}
 },{timestamps:true});
 userSchema.methods.matchPassword=async function(enter_password){
     return await bcryptjs.compare(enter_password,this.password);
@@ -21,4 +22,4 @@ userSchema.pre("save",async function(next){
     }
 })
 
-module.exports=mongoose.model("User",userSchema);
+module.exports=mongoose.model("user",userSchema);

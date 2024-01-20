@@ -12,8 +12,14 @@ exports.login=async (req,res)=>{
     return res.status(400).json({error:"The email is not found !!"})
     u=await User.findOne({email}).select("-photo");
     if(await u.matchPassword(password)){
+            
             const token=jwt.sign({id:u._id},process.env.JWT_SECRETE,{expiresIn:'30d'});
-            return res.json({first_name:u.first_name,last_name:u.last_name,_id:u._id,role:u.role,token})
+            user_connected=await User.findOneAndUpdate(
+                {_id:u.id},
+                {$set:{token,status:"Connected"}},
+                {new:true}
+            )
+            return res.json({first_name:u.first_name,last_name:u.last_name,role:u.role,token})
     }else{
         return res.status(400).json({error:"The password does not match the email !!"});
     }
@@ -32,7 +38,6 @@ exports.signin=async (req,res)=>{
             sexe:joi.string().required().messages({"string.emtpy":"Please the Sexe is required !!","any.required":"Please the Sexe is required !!"}),
             email:joi.string().required().messages({"string.emtpy":"Please the Email is required !!","any.required":"Please the Email is required !!"}),
             password:joi.string().required().messages({"string.emtpy":"Please the Password is required !!","any.required":"Please the Password is required !!"}),
-
         })
         const {error}=schema.validate({first_name,last_name,phone,sexe,email,password})
         if(error){

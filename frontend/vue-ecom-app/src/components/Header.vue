@@ -10,6 +10,12 @@
             <li class="nav-item z-level-5 select-bnt">
               <a  :class="[nativeUrl==='/Home' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Home')" aria-current="page" >Home</a>
             </li>
+            <li v-if="user_connected.first_name !=''" class="nav-item z-level-5 select-bnt">
+              <a  :class="[nativeUrl==='/Products' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Products')" >Products</a>
+            </li>
+            <li v-if="user_connected.first_name !=''" class="nav-item z-level-5 select-bnt">
+              <a  :class="[nativeUrl==='/Categories' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Categories')" >Categories</a>
+            </li>
 
             <li v-if="user_connected.first_name ==''" class="nav-item z-level-5 select-bnt">
               <a  :class="[nativeUrl==='/Login' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Login')" >Login</a>
@@ -41,12 +47,14 @@
             first_name:"",
             last_name:"",
             role:"",            
+            token:"",            
           },
         }
-      },
+       },
       methods:{
         navigateMenu(url){
           if(url=="/logOut"){
+            // fetch(`${this.API_URL}/user/signin`)
             localStorage.clear();
             this.user_connected.first_name="";
             this.user_connected.last_name="";
@@ -61,13 +69,12 @@
       },
       mounted(){
         if(localStorage.getItem("user_info")!=null){
-          const {first_name,last_name,role}=JSON.parse(localStorage.getItem("user_info"));
+          const {first_name,last_name,role,token}=JSON.parse(localStorage.getItem("user_info"));
           this.user_connected.first_name=first_name;
           this.user_connected.last_name=last_name;
           this.user_connected.role=role;
+          this.user_connected.token=token;
         }
-      }
-      
-      
+      }      
    }
 </script>
