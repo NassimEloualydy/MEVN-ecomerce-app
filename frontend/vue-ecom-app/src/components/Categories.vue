@@ -56,6 +56,16 @@
             </div>
         </div>
     </section>
+    <div class="container">
+        <div class="row">
+            <div class="text-start">
+
+                <ion-icon name="chevron-back-outline" class="Icon Icon_details" @click="navigateData('prev')" style="margin: 1px;"></ion-icon>
+                <ion-icon name="chevron-forward-outline" class="Icon Icon_details" @click="navigateData('next')" style="margin: 1px;"></ion-icon>    
+            </div>
+        </div>
+    </div>
+    
     <section class="modal fade" id="modelForm">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -113,6 +123,7 @@
             categories:[]
             ,
             submitButton:"Add",
+            offset:0,
             category:{
                 _id:"",
                 name:"",
@@ -178,8 +189,17 @@
                 this.submitButton="Add";
 
             },
+            navigateData(step){
+                if(step=="next"){
+                    this.offset+=6;
+                }
+                if(step=="prev" && this.offset>0){
+                    this.offset-=6;
+                }
+                this.getData();
+            },
             getData(){
-                fetch(`${this.API_URL}/category/getData`,{
+                fetch(`${this.API_URL}/category/getData/${this.offset}`,{
                     method:"POST",
                     headers:{
                         "Accept":"application/json",
@@ -190,7 +210,11 @@
                     body:JSON.stringify(this.categorySearch)
                 }).then(res=>res.json()).then(res=>{
                     if(res.data){
-                        this.categories=res.data;
+                        if(res.data.length==0){
+                            this.offset-=6;
+                        }else{
+                            this.categories=res.data;
+                        }
                     }else{
                         console.log(res);
                     }
@@ -208,8 +232,10 @@
           this.getData();
         }
       },
+
         components:{
             Header,Breadcrump
         }
         }
     </script>
+ 

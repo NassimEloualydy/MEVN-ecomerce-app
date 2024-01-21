@@ -7,6 +7,7 @@ exports.submitcategory=async (req,res)=>{
         name:joi.string().required().messages({"string.empty":"The name is required !!","any.required":"The name is required !!"}),
         description:joi.string().required().messages({"string.empty":"The description is required !!","any.required":"The description is required !!"}),
     })
+    
     if(_id==""){
 
         var c=await Category.find({name}).select()
@@ -52,10 +53,11 @@ exports.submitcategory=async (req,res)=>{
 } 
 exports.getData=async (req,res)=>{
     const {name,description}=req.body;
+    const offset=req.params.offset
     const searchQuery={}
     searchQuery.name={$regex:'.*'+name+'.*',$options:'i'};
     searchQuery.description={$regex:'.*'+description+'.*',$options:'i'};
-    const data=await Category.find(searchQuery).select();
+    const data=await Category.find(searchQuery).select().skip(offset).limit(6);
     if(data)
     return res.json({data})
     return res.status(400).json({error:data})
