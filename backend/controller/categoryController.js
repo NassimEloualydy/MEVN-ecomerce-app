@@ -70,3 +70,10 @@ exports.deleteCategory=async (req,res)=>{
     return res.json({message:"Deleted with success"});
     return res.status(400).json({error:category})
 }
+
+exports.getCategoryForProduct=async (req,res)=>{
+    const categories=await Category.find().select()
+    if(categories)
+    return res.json({categories})
+    return res.json({error:categories})
+}
