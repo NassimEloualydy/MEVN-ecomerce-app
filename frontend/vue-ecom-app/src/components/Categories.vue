@@ -32,7 +32,9 @@
         </div>
     </section>
     <section class="mt-5">
+        
         <div class="container">
+            <div class="tableClass">
             <div class="row">
                 <table class="table">
                     <thead>
@@ -55,6 +57,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </section>
     <div class="container">
         <div class="row">

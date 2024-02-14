@@ -97,3 +97,15 @@ body{
           color: white;
           transition: .3s;
         }
+        .imgProduct{
+          height: 170px !important;
+          object-fit: contain !important;
+                 }
+@media (max-width:1000px){
+  .tableClass{
+    width: 100%;
+    overflow-x: scroll;
+  }
+
+
+}
