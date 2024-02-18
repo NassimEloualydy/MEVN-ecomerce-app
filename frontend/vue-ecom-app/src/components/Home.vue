@@ -62,6 +62,7 @@
       <!-- section categories -->
        <section class="py-5">
         <div class="container">
+          
           <div :key="c" v-for="c in categorized">
             
             <div class="text-start fw-bolder h5 mt-3">{{c}}</div>
@@ -140,6 +141,7 @@
 </template>
 <script>
     import Header from './Header.vue';
+
    export default {
       name:"Home",
       data:function(){
@@ -168,6 +170,20 @@
         }
       },  
     methods:{
+      
+      saveProducts(){
+        fetch(`${this.API_URL}/order/saveProductOrder`,{
+          method:"POST",
+          headers:{
+            "Accpet":"application/json",
+            "Content-Type":"application/json",
+            "authorization":`Bearer ${this.user_connected.token}`
+          },
+          body:JSON.stringify(this.basketProduct)
+        }).then(res=>res.json()).then(res=>{
+          console.log(res);
+        })
+      },
       handleQtePrice(e,id){
         if(e.target.value!=""){
           if(isFinite(e.target.value)){
@@ -175,13 +191,12 @@
             foundProduct.priceTotal=parseInt(e.target.value)*foundProduct.price;
             foundProduct.qte=e.target.value;
             this.$forceUpdate();
-
+            this.saveProducts();
           }else{
             this.$toast.warning("The Quantity Sould Be An Integer !!")
           }
         }else{
           this.$toast.warning("The Quantity Sould Be An Integer !!")
-
         }
       },
       addProduct(product){
@@ -196,12 +211,15 @@
           for(var i=0;i<this.basketProduct.length;i++){
             if(this.basketProduct[i]._id==product._id){
               is_exist=true;
-              this.basketProduct[i].qte=this.basketProduct[i].qte+1
+              console.log("Become true")
+              this.basketProduct[i].qte=parseInt(this.basketProduct[i].qte)+1
               break;
             }
           }
           if(is_exist==false){
+            console.log("Become false")
             this.basketProduct.push(productBasket);
+            this.saveProducts()
           }
       },
       deleteProductFromList(id){
@@ -211,9 +229,37 @@
           if(productIndexToDelete!=-1){
             this.basketProduct.splice(productIndexToDelete, 1);  
             this.$forceUpdate();
+            this.saveProducts();
           }
           this.$toast.success("Delete From Your Basket With Success !");
         }
+      },
+      getProductChoosen(){
+        fetch(`${this.API_URL}/order/getProductChoosen`,{
+          method:"POST",
+          headers:{
+            "Accept":"application/json",
+            "Content-Type":"application/json",
+            "authorization":`Bearer ${this.user_connected.token}`
+          },
+        }).then(res=>res.json()).then(res=>{
+          if(res.products){
+            var productBasket={}
+            for(var i=0;i<res.products.length;i++){
+              productBasket={}
+          productBasket._id=res.products[i].product._id;
+          productBasket.name=res.products[i].product.name;
+          productBasket.price=res.products[i].product.price;
+          productBasket.priceTotal=res.products[i].priceInQte;
+          productBasket.qte=res.products[i].qte;
+          productBasket.category=res.products[i].product.category.name;
+          this.basketProduct.push(productBasket);
+            }
+            alert(JSON.stringify(this.basketProduct));
+          }else{
+            console.log(res)
+          }
+        }).catch(err=>console.log(err));
       },
         getProducts(){
           
@@ -268,6 +314,7 @@
         this.user_connected.token=token;
       }
       this.getProducts();
+      this.getProductChoosen()
     },
     components:{
         Header,

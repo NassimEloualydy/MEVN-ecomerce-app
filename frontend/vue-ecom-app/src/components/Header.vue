@@ -16,6 +16,9 @@
             <li v-if="user_connected.first_name !=''" class="nav-item z-level-5 select-bnt">
               <a  :class="[nativeUrl==='/Categories' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Categories')" >Categories</a>
             </li>
+            <li v-if="user_connected.first_name !=''" class="nav-item z-level-5 select-bnt">
+              <a  :class="[nativeUrl==='/Paiment' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Paiment')" >Paiment</a>
+            </li>
 
             <li v-if="user_connected.first_name ==''" class="nav-item z-level-5 select-bnt">
               <a  :class="[nativeUrl==='/Login' ? 'nav-link active fw-bolder':'nav-link']" @click="navigateMenu('/Login')" >Login</a>

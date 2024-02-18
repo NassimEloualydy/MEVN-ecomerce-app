@@ -12,6 +12,7 @@
     "@meforma/vue-toaster": "^1.3.0",
     "bootstrap": "^5.3.2",
     "bootstrap-vue": "^2.23.1",
+    "braintree-web": "^3.100.0",
     "vue": "^3.3.11",
     "vue-router": "^4.2.5",
     "vue-toastr": "^2.1.2"

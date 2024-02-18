@@ -4,12 +4,14 @@ import Login from  '../components/Login.vue'
 import Signin from '../components/Signin.vue'
 import Products from '../components/Products.vue'
 import Categories from '../components/Categories.vue'
+import  Paiment from '../components/Paiment.vue'
 const routes=[
     {path:"/Home",name:"Home",component:Home},
     {path:"/Login",name:"Login",component:Login},
     {path:"/Signin",name:"Signin",component:Signin},
     {path:"/Products",name:"Products",component:Products},
     {path:"/Categories",name:"Categories",component:Categories},
+    {path:"/Paiment",name:"Paiment",component:Paiment},
 
 ]
 const router=createRouter({
