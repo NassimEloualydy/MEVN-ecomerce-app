@@ -5,6 +5,7 @@ import Signin from '../components/Signin.vue'
 import Products from '../components/Products.vue'
 import Categories from '../components/Categories.vue'
 import  Paiment from '../components/Paiment.vue'
+import Order from '../components/order.vue'
 const routes=[
     {path:"/Home",name:"Home",component:Home},
     {path:"/Login",name:"Login",component:Login},
@@ -12,6 +13,7 @@ const routes=[
     {path:"/Products",name:"Products",component:Products},
     {path:"/Categories",name:"Categories",component:Categories},
     {path:"/Paiment",name:"Paiment",component:Paiment},
+    {path:"/Order",name:"Order",component:Order},
 
 ]
 const router=createRouter({

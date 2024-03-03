@@ -41,6 +41,7 @@ exports.confirmOrder=async (req,res)=>{
     priceOrder:req.params.priceTotale,
     status:"In Progress",
     is_delevered:"false",
+    date_delevered:"",
  })  
  console.log(order_client._id) 
  const orders_prodduct=await productOrder.updateMany({
@@ -54,3 +55,53 @@ exports.confirmOrder=async (req,res)=>{
  return res.json({message:"Order Confirmed With Success !!"});
  return res.status(400).json({err:orders_prodduct});
 }
+exports.getData=async (req,res)=>{
+   const {first_name,last_name,price,status,delevered,date_delevered,product}=req.body;
+   const searchQuery={};
+
+   searchQuery.priceOrder={$regex:'.*'+price+'.*',$options:'i'};
+   searchQuery.status={$regex:'.*'+status+'.*',$options:'i'};
+   searchQuery.is_delevered={$regex:'.*'+delevered+'.*',$options:'i'};
+   searchQuery.date_delevered={$regex:'.*'+date_delevered+'.*',$options:'i'};
+   console.log(searchQuery)
+   // const data=await Order.find(searchQuery).select().
+   // populate([{
+   //    path:"user",
+   //    model:"user",
+   //    match:{
+   //       first_name:{$regex:'.*'+first_name+'.*',$options:"i"},
+   //       last_name:{$regex:'.*'+last_name+'.*',$options:"i"},
+   //    }
+   // }])
+   const data=await Order.aggregate([
+      {
+         $lookup:{
+            from:"users",
+            localField:"user",
+            foreignField:"_id",
+            as:"user",
+         },
+         $lookup:{
+            from:"productOrders",
+            localField:"_id",
+            foreignField:"order",
+            as:"product_order",
+         }
+      },{
+         $project:{
+            "_id":1,
+            "priceOrder":1,
+            "status":1,
+            "is_delevered":1,
+            "date_delevered":1,
+            "user.first_name":1,
+            "user.last_name":1,
+            "product_order.product":1
+         }
+      }
+   ])
+   console.log(data)
+    if(data)
+    return res.json({orders:data})
+    return res.status(400).json({err:data})
+   }

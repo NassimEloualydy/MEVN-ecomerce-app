@@ -255,7 +255,6 @@
           productBasket.category=res.products[i].product.category.name;
           this.basketProduct.push(productBasket);
             }
-            alert(JSON.stringify(this.basketProduct));
           }else{
             console.log(res)
           }
